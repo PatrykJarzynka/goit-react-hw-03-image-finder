@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import { fetchImages } from '../services/pixabay.js';
+import imageAPI from '../services/pixabay';
+import ImageGalleryItem from './ImageGalleryItem.js';
 
 class ImageGallery extends Component {
   state = {
     current: 'idle',
+    data: '',
   };
 
   apiState = {
@@ -19,13 +21,13 @@ class ImageGallery extends Component {
 
   async componentDidUpdate(prevProps) {
     const prevName = prevProps.name;
-    const nextName = this.props.name;
+      const nextName = this.props.name;
 
     if (prevName !== nextName) {
       try {
         this.setState({ current: this.apiState.pending });
-        const data = fetchImages(nextName);
-        this.setState({ current: this.apiState.succes });
+        const data = await imageAPI.fetchImages(nextName);
+        this.setState({ data: data, current: this.apiState.succes });
       } catch (error) {
         this.setState({ current: this.apiState.error });
       }
@@ -33,7 +35,11 @@ class ImageGallery extends Component {
   }
 
   render() {
-    return <ul className="gallery"></ul>;
+    return (
+      <ul className="gallery">
+        <ImageGalleryItem data={this.state.data}></ImageGalleryItem>
+      </ul>
+    );
   }
 }
 
