@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import imageAPI from '../services/pixabay';
 import ImageGalleryItem from './ImageGalleryItem.js';
+import Button from './Button';
 import { nanoid } from 'nanoid';
 
 class ImageGallery extends Component {
@@ -44,9 +45,12 @@ class ImageGallery extends Component {
       contacts = items.map(item => <ImageGalleryItem key={nanoid()} url={item.webformatURL}/>);
     }
 
-    return (
+    return contacts.join() === "" ?(
       <ul className="gallery">
+      </ul>
+    ) :( <ul className="gallery">
         {contacts}
+        <Button></Button>
       </ul>
     );
   }
