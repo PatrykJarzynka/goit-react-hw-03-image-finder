@@ -17,6 +17,7 @@ const FancyGallery = styled.ul({
   rowGap: '20px',
   columnGap: '20px',
   listStyle: 'none',
+  justifyContent: 'center'
 });
 
 class ImageGallery extends Component {
@@ -52,7 +53,8 @@ class ImageGallery extends Component {
     }
   }
 
-  handleSubmit = async (e, name) => {
+  handleClick = async (e, name) => {
+    e.preventDefault();
     page++;
     try {
       this.apiState.pending();
@@ -79,7 +81,7 @@ class ImageGallery extends Component {
         {this.apiState.isSucces() && (
           <FancyGallery className="gallery">
             {contacts}
-            <Button onClick={event => this.handleSubmit(event, this.props.name)}></Button>
+            <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
           </FancyGallery>
         )}
       </div>
