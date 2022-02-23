@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Notiflix from 'notiflix';
 import styled from '@emotion/styled';
+import { IconName, ImSearch } from 'react-icons/im';
 
 const FancySearch = styled.header({
   top: 0,
@@ -16,6 +17,28 @@ const FancySearch = styled.header({
   backgroundColor: '#3f51b5',
   boxShadow:
     '0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+});
+
+const FancyInput = styled.input({
+  position: 'relative',
+  padding: '10px 10px',
+  minWidth: '500px',
+  borderRadius: 3,
+  border: 'none',
+  outline: 'none',
+  fontSize: 16,
+});
+
+const FancyButton = styled.button({
+  position: 'relative',
+  left: 5,
+  right: 0,
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  padding: '11px 10px',
+  color: 'grey',
+  border: 'none',
+  borderRadius: 3,
 });
 
 class Searchbar extends Component {
@@ -41,11 +64,13 @@ class Searchbar extends Component {
     return (
       <FancySearch className="searchbar">
         <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
+          <FancyButton type="submit" className="button">
+            <span className="button-label">
+              <ImSearch />
+            </span>
+          </FancyButton>
 
-          <input
+          <FancyInput
             onChange={this.handleChange}
             value={this.state.name}
             className="input"

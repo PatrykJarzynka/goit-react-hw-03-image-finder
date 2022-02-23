@@ -5,6 +5,7 @@ import Button from './Button';
 import { nanoid } from 'nanoid';
 import Loader from './Loader';
 
+
 let page = 1;
 
 class ImageGallery extends Component {
