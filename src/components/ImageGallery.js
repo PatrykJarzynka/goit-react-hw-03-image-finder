@@ -10,7 +10,7 @@ let page = 1;
 class ImageGallery extends Component {
   state = {
     current: 'idle',
-    data: '',
+    data: [],
   };
 
   apiState = {
@@ -32,7 +32,7 @@ class ImageGallery extends Component {
       try {
         this.apiState.pending();
         let data = await imageAPI.fetchImages(nextName, page);
-        this.setState({ data: data });
+        this.setState({ data: data.hits });
         this.apiState.succes();
       } catch (error) {
         this.apiState.error();
@@ -40,12 +40,12 @@ class ImageGallery extends Component {
     }
   }
 
-  handleSubmit = async (e, nextName) => {
+  handleSubmit = async (e, name) => {
     page++;
     try {
       this.apiState.pending();
-      let data = await imageAPI.fetchImages(nextName, page);
-      this.setState({ data: data });
+      let newData = await imageAPI.fetchImages(name, page);
+      this.setState(({ data }) => ({ data: [...newData.hits, ...data] }));
       this.apiState.succes();
     } catch (error) {
       this.apiState.error();
@@ -53,7 +53,7 @@ class ImageGallery extends Component {
   };
 
   render() {
-    let items = this.state.data.hits;
+    let items = this.state.data;
     let contacts = [];
     if (items) {
       contacts = items.map(item => <ImageGalleryItem key={nanoid()} url={item.webformatURL} />);
