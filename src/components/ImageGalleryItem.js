@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import Modal from './Modal';
 import styled from '@emotion/styled';
 
 const FancyItem = styled.li({
@@ -14,21 +13,11 @@ const FancyImg = styled.img({
 });
 
 class ImageGalleryItem extends Component {
-  state = {
-    isClicked: false,
-  };
-
-  showBigPicture = () => {
-    this.setState({ isClicked: true });
-  };
-
   render() {
-    return this.state.isClicked === false ? (
-      <FancyItem className="gallery-item" onClick={this.showBigPicture}>
+    return (
+      <FancyItem className="gallery-item" onClick={this.props.onClick}>
         <FancyImg src={this.props.url} alt="picture" />
       </FancyItem>
-    ) : (
-      <Modal url={this.props.bigImg}></Modal>
     );
   }
 }

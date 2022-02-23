@@ -5,6 +5,7 @@ import Button from './Button';
 import { nanoid } from 'nanoid';
 import Loader from './Loader';
 import styled from '@emotion/styled';
+import Modal from './Modal';
 
 let page = 1;
 
@@ -30,6 +31,7 @@ class ImageGallery extends Component {
   state = {
     current: 'idle',
     data: [],
+    isClicked: false,
   };
 
   apiState = {
@@ -72,15 +74,19 @@ class ImageGallery extends Component {
     }
   };
 
+  showBigPicture = () => {
+    this.setState({ isClicked: true });
+  };
+
   render() {
     let items = this.state.data;
     let contacts = [];
     if (items) {
       contacts = items.map(item => (
-        <ImageGalleryItem key={nanoid()} url={item.webformatURL} bigImg={item.largeImageURL} />
+        <ImageGalleryItem key={nanoid()} url={item.webformatURL} bigImg={item.largeImageURL} onClick={this.showBigPicture} />
       ));
     }
-
+console.log(this.state.isClicked);
     return (
       <div>
         {this.apiState.isPending() && (
@@ -92,12 +98,13 @@ class ImageGallery extends Component {
             <Loader />
           </FancyLoader>
         )}
-        {this.apiState.isSucces() && (
+        {(this.apiState.isSucces() && this.state.isClicked === false) && (
           <FancyGallery className="gallery">
             {contacts}
             <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
           </FancyGallery>
         )}
+        {(this.apiState.isSucces() && this.state.isClicked === true) && <Modal url={ }/>}
       </div>
     );
   }
