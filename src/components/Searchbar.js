@@ -7,7 +7,6 @@ const FancySearch = styled.header({
   top: 0,
   left: 0,
   position: 'sticky',
-  zIndex: 1100,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

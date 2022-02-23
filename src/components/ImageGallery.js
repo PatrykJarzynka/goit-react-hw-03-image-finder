@@ -5,7 +5,7 @@ import Button from './Button';
 import { nanoid } from 'nanoid';
 import Loader from './Loader';
 import styled from '@emotion/styled';
-import Modal from "./Modal.js"
+import Modal from './Modal.js';
 
 let page = 1;
 
@@ -22,19 +22,18 @@ const FancyGallery = styled.ul({
 });
 
 const FancyLoader = styled.div({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   flexDirection: 'column',
-  })
+});
 
 class ImageGallery extends Component {
   state = {
     current: 'idle',
     data: [],
     isClicked: false,
-    bigUrl: ""
+    bigUrl: '',
   };
-
 
   apiState = {
     pending: () => this.setState({ current: 'pending' }),
@@ -76,20 +75,25 @@ class ImageGallery extends Component {
     }
   };
 
-  showBigPicture = (bigImg) => {
-    this.setState({isClicked: true, bigUrl: bigImg })
-  }
-
+  showBigPicture = bigImg => {
+    this.setState({ isClicked: true, bigUrl: bigImg });
+  };
 
   render() {
     let items = this.state.data;
     let contacts = [];
     if (items) {
       contacts = items.map(item => (
-        <ImageGalleryItem key={nanoid()} url={item.webformatURL} bigImg={item.largeImageURL} showBigPicture={this.showBigPicture}/>
+        <ImageGalleryItem
+          key={nanoid()}
+          url={item.webformatURL}
+          bigImg={item.largeImageURL}
+          showBigPicture={this.showBigPicture}
+        />
       ));
     }
 
+    console.log(this.state.bigUrl)
     return (
       <div>
         {this.apiState.isPending() && (
@@ -101,16 +105,18 @@ class ImageGallery extends Component {
             <Loader />
           </FancyLoader>
         )}
-        {this.apiState.isSucces() && (
-          <FancyGallery className="gallery">
-            {contacts}
-            <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
-          </FancyGallery>
-        )}
         {this.state.isClicked === true && (
+          <div>
+            <Modal url={this.state.bigUrl}></Modal>
+            <FancyGallery className="gallery">
+              {contacts}
+              <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
+            </FancyGallery>
+          </div>
+        )}
+        {this.apiState.isSucces() && this.state.isClicked === false && (
           <FancyGallery className="gallery">
             {contacts}
-            <Modal url={this.state.bigUrl}></Modal>
             <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
           </FancyGallery>
         )}
