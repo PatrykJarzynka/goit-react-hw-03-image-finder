@@ -17,7 +17,13 @@ const FancyGallery = styled.ul({
   rowGap: '20px',
   columnGap: '20px',
   listStyle: 'none',
-  justifyContent: 'center'
+  justifyContent: 'center',
+});
+
+const FancyLoader = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
 });
 
 class ImageGallery extends Component {
@@ -77,7 +83,15 @@ class ImageGallery extends Component {
 
     return (
       <div>
-        {this.apiState.isPending() && <Loader />}
+        {this.apiState.isPending() && (
+          <FancyLoader>
+            <FancyGallery className="gallery">
+              {contacts}
+              <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
+            </FancyGallery>
+            <Loader />
+          </FancyLoader>
+        )}
         {this.apiState.isSucces() && (
           <FancyGallery className="gallery">
             {contacts}
