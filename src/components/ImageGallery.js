@@ -3,8 +3,7 @@ import imageAPI from '../services/pixabay';
 import ImageGalleryItem from './ImageGalleryItem.js';
 import Button from './Button';
 import { nanoid } from 'nanoid';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import { TailSpin } from 'react-loader-spinner';
+import Loader from './Loader';
 
 let page = 1;
 
@@ -53,7 +52,6 @@ class ImageGallery extends Component {
     }
   };
 
-
   render() {
     let items = this.state.data;
     let contacts = [];
@@ -65,9 +63,7 @@ class ImageGallery extends Component {
 
     return (
       <div>
-        {this.apiState.isPending() && (
-          <TailSpin height="100" width="100" color="red" ariaLabel="loading" />
-        )}
+        {this.apiState.isPending() && <Loader />}
         {this.apiState.isSucces() && (
           <ul className="gallery">
             {contacts}
