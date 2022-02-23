@@ -4,6 +4,7 @@ import ImageGalleryItem from './ImageGalleryItem.js';
 import Button from './Button';
 import { nanoid } from 'nanoid';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { TailSpin } from 'react-loader-spinner';
 
 let page = 1;
 
@@ -45,7 +46,7 @@ class ImageGallery extends Component {
     try {
       this.apiState.pending();
       let newData = await imageAPI.fetchImages(name, page);
-      this.setState(({ data }) => ({ data: [...newData.hits, ...data] }));
+      this.setState(({ data }) => ({ data: [...data, ...newData.hits] }));
       this.apiState.succes();
     } catch (error) {
       this.apiState.error();
@@ -60,12 +61,17 @@ class ImageGallery extends Component {
     }
 
     return (
-      this.apiState.isSucces() && (
-        <ul className="gallery">
-          {contacts}
-          <Button onClick={event => this.handleSubmit(event, this.props.name)}></Button>
-        </ul>
-      )
+      <div>
+        {this.apiState.isPending() && (
+          <TailSpin height="100" width="100" color="red" ariaLabel="loading" />
+        )}
+        {this.apiState.isSucces() && (
+          <ul className="gallery">
+            {contacts}
+            <Button onClick={event => this.handleSubmit(event, this.props.name)}></Button>
+          </ul>
+        )}
+      </div>
     );
   }
 }
