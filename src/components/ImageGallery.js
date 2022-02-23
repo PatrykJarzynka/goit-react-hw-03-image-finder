@@ -53,11 +53,14 @@ class ImageGallery extends Component {
     }
   };
 
+
   render() {
     let items = this.state.data;
     let contacts = [];
     if (items) {
-      contacts = items.map(item => <ImageGalleryItem key={nanoid()} url={item.webformatURL} />);
+      contacts = items.map(item => (
+        <ImageGalleryItem key={nanoid()} url={item.webformatURL} bigImg={item.largeImageURL} />
+      ));
     }
 
     return (
