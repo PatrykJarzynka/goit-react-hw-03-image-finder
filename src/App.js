@@ -6,11 +6,10 @@ import styled from '@emotion/styled';
 
 const FancyApp = styled.div({
   display: 'grid',
-  gridTemplateColumns: "1fr",
-  gridGap: "16px",
-  paddingBottom: "24px"
-})
-
+  gridTemplateColumns: '1fr',
+  gridGap: '16px',
+  paddingBottom: '24px',
+});
 
 class App extends Component {
   state = {
@@ -27,7 +26,6 @@ class App extends Component {
         <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
         <ImageGallery name={this.state.name}></ImageGallery>
       </FancyApp>
-      
     );
   }
 }

@@ -4,9 +4,20 @@ import ImageGalleryItem from './ImageGalleryItem.js';
 import Button from './Button';
 import { nanoid } from 'nanoid';
 import Loader from './Loader';
-
+import styled from '@emotion/styled';
 
 let page = 1;
+
+const FancyGallery = styled.ul({
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  padding: '0px 20px',
+  rowGap: '20px',
+  columnGap: '20px',
+  listStyle: 'none',
+});
 
 class ImageGallery extends Component {
   state = {
@@ -66,10 +77,10 @@ class ImageGallery extends Component {
       <div>
         {this.apiState.isPending() && <Loader />}
         {this.apiState.isSucces() && (
-          <ul className="gallery">
+          <FancyGallery className="gallery">
             {contacts}
             <Button onClick={event => this.handleSubmit(event, this.props.name)}></Button>
-          </ul>
+          </FancyGallery>
         )}
       </div>
     );

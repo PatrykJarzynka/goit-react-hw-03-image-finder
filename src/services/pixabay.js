@@ -5,16 +5,15 @@ const fetchImages = (name, page) => {
     `https://pixabay.com/api/?key=${KEY}&q=${name}&page=${page}&image_type=photo&orientation=horizontal&per_page=12`,
   )
     .then(response => {
-     return response.json();
+      return response.json();
     })
     .then(data => {
       return data;
     });
 };
 
-
 const api = {
-  fetchImages
-}
+  fetchImages,
+};
 
 export default api;
