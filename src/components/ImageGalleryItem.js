@@ -13,9 +13,17 @@ const FancyImg = styled.img({
 });
 
 class ImageGalleryItem extends Component {
+  state = {
+    isClicked: false,
+  };
+
+  handleClick = () => {
+    this.props.showBigPicture(this.props.bigImg);
+  };
+
   render() {
     return (
-      <FancyItem className="gallery-item" onClick={this.props.onClick}>
+      <FancyItem className="gallery-item" onClick={this.handleClick}>
         <FancyImg src={this.props.url} alt="picture" />
       </FancyItem>
     );
