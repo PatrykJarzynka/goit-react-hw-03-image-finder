@@ -79,6 +79,10 @@ class ImageGallery extends Component {
     this.setState({ isClicked: true, bigUrl: bigImg });
   };
 
+  hideBigPicture = event => {
+    if (event.target.localName !== 'img') this.setState({ isClicked: false });
+  };
+
   render() {
     let items = this.state.data;
     let contacts = [];
@@ -93,21 +97,17 @@ class ImageGallery extends Component {
       ));
     }
 
-    console.log(this.state.bigUrl)
     return (
       <div>
         {this.apiState.isPending() && (
           <FancyLoader>
-            <FancyGallery className="gallery">
-              {contacts}
-              <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
-            </FancyGallery>
+            <FancyGallery className="gallery">{contacts}</FancyGallery>
             <Loader />
           </FancyLoader>
         )}
         {this.state.isClicked === true && (
           <div>
-            <Modal url={this.state.bigUrl}></Modal>
+            <Modal url={this.state.bigUrl} onClick={this.hideBigPicture}></Modal>
             <FancyGallery className="gallery">
               {contacts}
               <Button onClick={event => this.handleClick(event, this.props.name)}></Button>

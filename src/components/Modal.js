@@ -17,9 +17,9 @@ const Overlay = styled.div({
   height: "100%"
 });
 
-function Modal({ url }) {
+function Modal({ url, onClick }) {
   return (
-    <Overlay className="overlay">
+    <Overlay className="overlay" onClick={onClick}>
       <FancyModal className="modal">
         <img src={url} alt="bigPicture" />
       </FancyModal>
