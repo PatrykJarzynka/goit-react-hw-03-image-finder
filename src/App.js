@@ -23,8 +23,8 @@ class App extends Component {
   render() {
     return (
       <FancyApp>
-        <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
-        <ImageGallery name={this.state.name}></ImageGallery>
+        <Searchbar onSubmit={this.handleFormSubmit} />
+        <ImageGallery name={this.state.name} />
       </FancyApp>
     );
   }

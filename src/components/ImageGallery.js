@@ -122,17 +122,17 @@ class ImageGallery extends Component {
         )}
         {this.state.isModalShow === true && (
           <div>
-            <Modal url={this.state.bigUrl} onClick={this.hideBigPicture}></Modal>
+            <Modal url={this.state.bigUrl} onClick={this.hideBigPicture} />
             <FancyGallery className="gallery">
               {pictures}
-              <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
+              <Button onClick={event => this.handleClick(event, this.props.name)} />
             </FancyGallery>
           </div>
         )}
         {this.apiState.isSucces() && this.state.isModalShow === false && (
           <FancyGallery className="gallery">
             {pictures}
-            <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
+            <Button onClick={event => this.handleClick(event, this.props.name)} />
           </FancyGallery>
         )}
       </div>
