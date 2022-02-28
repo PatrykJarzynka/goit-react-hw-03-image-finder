@@ -31,7 +31,7 @@ class ImageGallery extends Component {
   state = {
     current: 'idle',
     data: [],
-    isClicked: false,
+    isModalShow: false,
     bigUrl: '',
   };
 
@@ -76,12 +76,26 @@ class ImageGallery extends Component {
   };
 
   showBigPicture = bigImg => {
-    this.setState({ isClicked: true, bigUrl: bigImg });
+    this.setState({ isModalShow: true, bigUrl: bigImg });
   };
 
-  hideBigPicture = event => {
-    if (event.target.localName !== 'img') this.setState({ isClicked: false });
+  hideBigPicture = () => {
+    this.setState({ isModalShow: false });
   };
+
+  closeOnEsc = event => {
+    if (event.keyCode === 27) {
+      this.setState({ isModalShow: false });
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.closeOnEsc);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.closeOnEsc);
+  }
 
   render() {
     let items = this.state.data;
@@ -105,7 +119,7 @@ class ImageGallery extends Component {
             <Loader />
           </FancyLoader>
         )}
-        {this.state.isClicked === true && (
+        {this.state.isModalShow === true && (
           <div>
             <Modal url={this.state.bigUrl} onClick={this.hideBigPicture}></Modal>
             <FancyGallery className="gallery">
@@ -114,7 +128,7 @@ class ImageGallery extends Component {
             </FancyGallery>
           </div>
         )}
-        {this.apiState.isSucces() && this.state.isClicked === false && (
+        {this.apiState.isSucces() && this.state.isModalShow === false && (
           <FancyGallery className="gallery">
             {contacts}
             <Button onClick={event => this.handleClick(event, this.props.name)}></Button>

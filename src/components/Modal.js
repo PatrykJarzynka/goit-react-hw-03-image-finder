@@ -18,10 +18,11 @@ const Overlay = styled.div({
 });
 
 function Modal({ url, onClick }) {
+
   return (
     <Overlay className="overlay" onClick={onClick}>
       <FancyModal className="modal">
-        <img src={url} alt="bigPicture" />
+        <img src={url} alt="bigPicture" onClick={(event) => event.stopPropagation()} />
       </FancyModal>
     </Overlay>
   );
