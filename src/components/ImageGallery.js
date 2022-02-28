@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid';
 import Loader from './Loader';
 import styled from '@emotion/styled';
 import Modal from './Modal.js';
+import PropTypes from 'prop-types';
 
 let page = 1;
 
@@ -87,7 +88,7 @@ class ImageGallery extends Component {
     if (event.keyCode === 27) {
       this.setState({ isModalShow: false });
     }
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('keydown', this.closeOnEsc);
@@ -99,9 +100,9 @@ class ImageGallery extends Component {
 
   render() {
     let items = this.state.data;
-    let contacts = [];
+    let pictures = [];
     if (items) {
-      contacts = items.map(item => (
+      pictures = items.map(item => (
         <ImageGalleryItem
           key={nanoid()}
           url={item.webformatURL}
@@ -115,7 +116,7 @@ class ImageGallery extends Component {
       <div>
         {this.apiState.isPending() && (
           <FancyLoader>
-            <FancyGallery className="gallery">{contacts}</FancyGallery>
+            <FancyGallery className="gallery">{pictures}</FancyGallery>
             <Loader />
           </FancyLoader>
         )}
@@ -123,14 +124,14 @@ class ImageGallery extends Component {
           <div>
             <Modal url={this.state.bigUrl} onClick={this.hideBigPicture}></Modal>
             <FancyGallery className="gallery">
-              {contacts}
+              {pictures}
               <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
             </FancyGallery>
           </div>
         )}
         {this.apiState.isSucces() && this.state.isModalShow === false && (
           <FancyGallery className="gallery">
-            {contacts}
+            {pictures}
             <Button onClick={event => this.handleClick(event, this.props.name)}></Button>
           </FancyGallery>
         )}
@@ -138,5 +139,9 @@ class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  name: PropTypes.string,
+};
 
 export default ImageGallery;

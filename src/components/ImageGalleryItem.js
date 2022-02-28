@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 const FancyItem = styled.li({
   width: '450px',
@@ -29,5 +30,11 @@ class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  url: PropTypes.string,
+  bigImg: PropTypes.string,
+  showBigPicture: PropTypes.func,
+};
 
 export default ImageGalleryItem;

@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import Notiflix from 'notiflix';
 import styled from '@emotion/styled';
-import { IconName, ImSearch } from 'react-icons/im';
+import { ImSearch } from 'react-icons/im';
+import PropTypes from 'prop-types';
 
 const FancySearch = styled.header({
   top: 0,
@@ -83,5 +84,9 @@ class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default Searchbar;

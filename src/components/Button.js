@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 const FancyButton = styled.button({
   backgroundColor: '#3f51b5',
@@ -16,5 +17,9 @@ function Button({ onClick }) {
     </FancyButton>
   );
 }
+
+Button.propTypes = {
+  onClick: PropTypes.func,
+};
 
 export default Button;
