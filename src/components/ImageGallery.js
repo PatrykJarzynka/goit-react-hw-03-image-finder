@@ -135,6 +135,9 @@ class ImageGallery extends Component {
             <Button onClick={event => this.handleClick(event, this.props.name)} />
           </FancyGallery>
         )}
+        {this.apiState.isError() && (
+          <div>There was an error</div>
+        )}
       </div>
     );
   }
