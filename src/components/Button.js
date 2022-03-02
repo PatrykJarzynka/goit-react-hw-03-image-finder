@@ -8,6 +8,7 @@ const FancyButton = styled.button({
   padding: 10,
   borderRadius: 5,
   cursor: 'pointer',
+  maxWidth: "100px"
 });
 
 function Button({ onClick }) {

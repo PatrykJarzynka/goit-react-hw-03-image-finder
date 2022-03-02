@@ -10,6 +10,12 @@ import PropTypes from 'prop-types';
 
 let page = 1;
 
+const Jinx = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+});
+
 const FancyGallery = styled.ul({
   display: 'flex',
   flexDirection: 'row',
@@ -121,23 +127,19 @@ class ImageGallery extends Component {
           </FancyLoader>
         )}
         {this.state.isModalShow === true && (
-          <div>
+          <Jinx>
             <Modal url={this.state.bigUrl} onClick={this.hideBigPicture} />
-            <FancyGallery className="gallery">
-              {pictures}
-              <Button onClick={event => this.handleClick(event, this.props.name)} />
-            </FancyGallery>
-          </div>
+            <FancyGallery className="gallery">{pictures}</FancyGallery>
+            <Button onClick={event => this.handleClick(event, this.props.name)} />
+          </Jinx>
         )}
         {this.apiState.isSucces() && this.state.isModalShow === false && (
-          <FancyGallery className="gallery">
-            {pictures}
+          <Jinx>
+            <FancyGallery className="gallery">{pictures}</FancyGallery>
             <Button onClick={event => this.handleClick(event, this.props.name)} />
-          </FancyGallery>
+          </Jinx>
         )}
-        {this.apiState.isError() && (
-          <div>There was an error</div>
-        )}
+        {this.apiState.isError() && <div>There was an error</div>}
       </div>
     );
   }
